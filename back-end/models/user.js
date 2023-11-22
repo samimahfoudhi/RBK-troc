@@ -1,6 +1,11 @@
 module.exports = (sequelize, Datatype) => {
-  const Seller = sequelize.define("Seller", {
-    sellerName: {
+  const User = sequelize.define("User", {
+    userName: {
+      type: Datatype.STRING,
+
+      allowNull: false,
+    },
+    adress: {
       type: Datatype.STRING,
 
       allowNull: false,
@@ -21,10 +26,5 @@ module.exports = (sequelize, Datatype) => {
     },
   });
 
-  Seller.associate = (models) => {
-    Seller.hasMany(models.Product, {
-      onDelete: "cascade",
-    });
-  };
-  return Seller;
+  return User;
 };
