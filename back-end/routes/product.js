@@ -6,6 +6,7 @@ route.post("/createProduct", (req, res) => {
   db.Product.create({
     description: req.body.description,
     image: req.body.image,
+    category: req.body.category,
     price: req.body.price,
     SellerId: req.body.SellerId,
   })
@@ -22,6 +23,7 @@ route.put("/updateProduct/:id", (req, res) => {
   db.Product.update(
     {
       description: req.body.description,
+      category: req.body.category,
       image: req.body.image,
       price: req.body.price,
       SellerId: req.body.SellerId,

@@ -5,6 +5,11 @@ module.exports = (sequelize, Datatype) => {
 
       allowNull: false,
     },
+    category: {
+      type: Datatype.STRING,
+
+      allowNull: false,
+    },
     description: {
       type: Datatype.STRING,
       allowNull: false,
