@@ -20,12 +20,30 @@ import isAuth from "../lib/isAuth";
 const useStyles = makeStyles((theme) => ({
   body: {
     padding: "60px 60px",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  leftSide: {
+    flex: 1,
+    marginRight: "20px",
+  },
+  rightSide: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   inputBox: {
     width: "300px",
+    marginBottom: "20px",
   },
   submitButton: {
     width: "300px",
+  },
+  welcomeMessage: {
+    fontSize: "24px",
+    color: "#555",
+    marginBottom: "20px",
   },
 }));
 
@@ -107,43 +125,44 @@ const Login = (props) => {
     <Redirect to="/" />
   ) : (
     <Paper elevation={3} className={classes.body}>
-      <Grid container direction="column" spacing={4} alignItems="center">
-        <Grid item>
-          <Typography variant="h3" component="h2">
-            Login
-          </Typography>
-        </Grid>
-        <Grid item>
-          <EmailInput
-            label="Email"
-            value={loginDetails.email}
-            onChange={(event) => handleInput("email", event.target.value)}
-            inputErrorHandler={inputErrorHandler}
-            handleInputError={handleInputError}
-            className={classes.inputBox}
-          />
-        </Grid>
-        <Grid item>
-          <PasswordInput
-            label="Password"
-            value={loginDetails.password}
-            onChange={(event) => handleInput("password", event.target.value)}
-            className={classes.inputBox}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleLogin()}
-            className={classes.submitButton}
-          >
-            Login
-          </Button>
-        </Grid>
-      </Grid>
+      <div className={classes.leftSide}>
+        <img
+          src="https://cdn-res.keymedia.com/cms/images/us/036/0223_637123482318135213.jpg" 
+          alt="Welcome"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+      <div className={classes.rightSide}>
+        
+        <Typography variant="h3" className={classes.welcomeMessage}>
+          explore the word with rbk-troc
+        </Typography>
+        <EmailInput
+          label="Email"
+          value={loginDetails.email}
+          onChange={(event) => handleInput("email", event.target.value)}
+          inputErrorHandler={inputErrorHandler}
+          handleInputError={handleInputError}
+          className={classes.inputBox}
+        />
+        <PasswordInput
+          label="Password"
+          value={loginDetails.password}
+          onChange={(event) => handleInput("password", event.target.value)}
+          className={classes.inputBox}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleLogin()}
+          className={classes.submitButton}
+        >
+          Login
+        </Button>
+      </div>
     </Paper>
   );
 };
 
 export default Login;
+
