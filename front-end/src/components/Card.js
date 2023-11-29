@@ -1,17 +1,13 @@
 import React from "react";
 import "./Card.css";
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="cardContainer">
-      <img
-        className="cardImage"
-        src="https://via.placeholder.com/246x278"
-        alt=""
-      />
-      <div className="categoryText">Category</div>
+      <img className="cardImage" src={props.e.image} alt="" />
+      <div className="categoryText">{props.e.category}</div>
       <div className="titlePrice">
-        <div className="titleText">Title</div>
-        <div className="priceText">Price DT</div>
+        <div className="titleText">{props.e.description}</div>
+        <div className="priceText">{props.e.price} DT</div>
       </div>
       <button className="buyButton">
         <div className="buyButtonText">Buy Now</div>

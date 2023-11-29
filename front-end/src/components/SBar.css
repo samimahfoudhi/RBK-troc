@@ -11,7 +11,7 @@
 .SidebarTitle {
   padding-top: 30px;
   margin-right: 70px;
-  color: black;
+  color: #1f1b38;
   font-size: 26px;
   font-family: "Poppins";
   font-weight: 600;
@@ -19,6 +19,7 @@
 }
 
 .SidebarMenu {
+  color: #1f1b38;
   font-size: 18px;
   font-family: "Poppins";
   font-weight: 600;

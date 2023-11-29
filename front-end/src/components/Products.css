@@ -1,0 +1,11 @@
+.cardGrid {
+  margin-top: 200px;
+  margin-left: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.prods {
+  display: flex;
+}
