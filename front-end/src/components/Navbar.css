@@ -1,0 +1,109 @@
+.container {
+  width: 1440 px;
+  height: 101 px;
+  position: "relative";
+}
+.logo {
+  left: 20px;
+  top: 28px;
+  position: absolute;
+  color: rgb(2, 2, 65);
+  font-size: 36px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+.home {
+  left: 700px;
+  top: 41px;
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-family: "SF Pro Display";
+  font-weight: 600;
+  word-wrap: break-word;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.collection {
+  left: 790px;
+  top: 41px;
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-family: "SF Pro Display";
+  font-weight: 600;
+  word-wrap: break-word;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.searchcontainer {
+  width: 358px;
+  height: 48px;
+  left: 300px;
+  top: 26px;
+  position: absolute;
+}
+
+.searchbackground {
+  width: 358px;
+  height: 48px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 184px;
+  border: 0.5px rgba(255, 255, 255, 0.5) solid;
+}
+
+.searchinput {
+  left: 51px;
+  top: 16px;
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  font-family: "SF Pro Display";
+  font-weight: 400;
+  letter-spacing: 0.42;
+  word-wrap: break-word;
+  border: none;
+  background: transparent;
+}
+.login {
+  left: 980px;
+  top: 41px;
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-family: "SF Pro Display";
+  font-weight: 600;
+  word-wrap: break-word;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.aboutcontainer {
+  width: 51px;
+  height: 19px;
+  left: 1100px;
+  top: 41px;
+  position: absolute;
+}
+.about {
+  left: 0;
+  top: 0;
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-family: "SF Pro Display";
+  font-weight: 600;
+  word-wrap: break-word;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
