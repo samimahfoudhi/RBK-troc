@@ -7,9 +7,9 @@
   left: 20px;
   top: 28px;
   position: absolute;
-  color: #6c5dd3;
+  color: rgb(2, 2, 65);
   font-size: 36px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 700;
   word-wrap: break-word;
 }
