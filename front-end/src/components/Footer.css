@@ -1,4 +1,5 @@
 .footer {
+<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,4 +26,35 @@
 
 .center-items {
   flex: 2;
+=======
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.section {
+  flex: 1;
+  padding: 10px;
+}
+
+.section h2,
+.section h3 {
+  margin-bottom: 10px;
+}
+
+.section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.section li {
+  margin-bottom: 5px;
+}
+h2,
+h3 {
+  color: #6c5dd3;
+>>>>>>> 8af99f6602df72ccccf95b231de9a6918223bc87
 }

@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
@@ -45,6 +46,35 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
+=======
+import "./Navbar.css";
+
+const Navbar = () => {
+  return (
+    <>
+      <div className="container">
+        <div className="logo">RBK-TROC</div>
+        <button className="home">Home</button>
+
+        <button className="collection">Personal Collection</button>
+        <div className="searchcontainer">
+          <div className="searchbackground" />
+
+          <input
+            className="searchinput"
+            type="text"
+            placeholder="Search Items"
+          />
+        </div>
+
+        <button className="login">Login</button>
+
+        <div className="aboutcontainer">
+          <button className="about">About</button>
+        </div>
+      </div>
+    </>
+>>>>>>> 8af99f6602df72ccccf95b231de9a6918223bc87
   );
 };
 
