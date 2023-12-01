@@ -32,7 +32,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/signup", formData);
+      const response = await axios.post("http://localhost:7000/api/auth/signup", formData);
       console.log(response.data);
     } catch (error) {
       console.error(error.response.data);
@@ -40,9 +40,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup"> {/* Use the class for styling */}
+    <div className="signup"> 
       <h2>Signup</h2>
-      <form onSubmit={handleSubmit} className="signupContainer"> {/* Use the class for styling */}
+      <form onSubmit={handleSubmit} className="signupContainer">
         <label>Name:</label>
         <input type="text" name="name" onChange={handleInputChange} required />
         <br />
