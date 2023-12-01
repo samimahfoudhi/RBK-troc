@@ -1,0 +1,40 @@
+.profilContainer {
+  margin-top: 180px;
+  margin-bottom: 170px;
+}
+#couverture {
+  width: 1040px;
+  height: 355px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    lightgray 50% / cover no-repeat;
+}
+#profilphoto {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 120px;
+  border: 3px solid #fff;
+
+  background: lightgray 50% / cover no-repeat;
+}
+#addproduct {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #0d2947;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#addproduct:hover {
+  background-color: #0056b3;
+}
