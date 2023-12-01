@@ -1,8 +1,10 @@
-import React from "react";
-import "./AddProduct.css";
+// AddProduct.js
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import "./AddProduct.css";
+
 const AddProduct = (props) => {
   const navigate = useNavigate();
   const [image, setImage] = useState("");
@@ -10,40 +12,61 @@ const AddProduct = (props) => {
   const [descr, setDescr] = useState("");
   const [price, setPrice] = useState();
   const [data, setData] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:7000/getAllSellers")
       .then(({ data }) => setData(data))
       .catch((err) => console.log(err));
   }, []);
+
   const currentSeller = data.find((e) => e.email === props.seller.email);
-  console.log(currentSeller);
+
   const handleUpdate = () => {
-    const prouct = {};
+    const product = {};
     if (image !== "") {
-      prouct.image = image;
+      product.image = image;
     }
     if (category !== "") {
-      prouct.category = category;
+      product.category = category;
     }
     if (descr !== "") {
-      prouct.description = descr;
+      product.description = descr;
     }
     if (price !== 0) {
-      prouct.image = image;
+      product.price = price;
     }
     if (currentSeller !== 0) {
-      prouct.SellerId = currentSeller.id;
+      product.SellerId = currentSeller.id;
     }
+    
     axios
-      .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, prouct)
-      .then((response) => console.log("done"))
+      .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, product)
+      .then((response) => console.log("Update done"))
       .catch((err) => console.log(err));
+    
     navigate("/product");
   };
+
+  const handleImageUpload = async (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("upload_preset", "your_cloudinary_preset"); // Replace with your Cloudinary preset name
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/your_cloudinary_cloud_name/image/upload",
+        formData
+      );
+
+      setImage(response.data.secure_url);
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+    }
+  };
+
   const handleSubmit = () => {
-    const prouct = {
+    const product = {
       image: image,
       category: category,
       description: descr,
@@ -52,23 +75,21 @@ const AddProduct = (props) => {
     };
 
     axios
-      .post("http://localhost:7000/createProduct", prouct)
-      .then((response) => console.log("done"))
+      .post("http://localhost:7000/createProduct", product)
+      .then((response) => console.log("Product created"))
       .catch((err) => console.log(err));
 
     navigate("/test");
   };
+
   return (
     <div className="contain">
       <div className="formContainer">
         <form>
           <input
-            type="text"
-            placeholder="image"
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-          />{" "}
+            type="file"
+            onChange={handleImageUpload}
+          />
           <br />
           <input
             type="text"
@@ -94,8 +115,8 @@ const AddProduct = (props) => {
             }}
           />
         </form>
-        <button onClick={handleSubmit}>submit</button>
-        <button onClick={handleUpdate}>submit update</button>
+        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleUpdate}>Submit Update</button>
       </div>
     </div>
   );
