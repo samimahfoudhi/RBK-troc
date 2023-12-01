@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Products from "./components/Products";
 import Footer from "./components/Footer";
-import { Routes, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import { useState } from "react";
 import About from "./components/About";
@@ -10,7 +10,7 @@ import Profil from "./components/Profil";
 import ProfilInfo from "./components/ProfilInfo";
 import AddProduct from "./components/AddProduct";
 import SignIn from "./components/SignIn";
-import Signup from "./components/Signup";
+import SignUp from "./components/SignUp";
 function App() {
   const [seller, setSeller] = useState({});
   const [idUpdate, setIdUpdate] = useState();
@@ -44,7 +44,7 @@ function App() {
           path="/test2"
           element={<AddProduct idUpdate={idUpdate} seller={seller} />}
         />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/signup" element={<SignUp />} />
       </Routes>
       <Footer />
     </div>

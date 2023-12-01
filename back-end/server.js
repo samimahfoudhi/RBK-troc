@@ -3,7 +3,7 @@ const cors = require("cors");
 const db = require("./models");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const sequelize = require("./db");
+const sequelize = db.sequelize;
 const port = 7000;
 const app = express();
 const sellerRouter = require("./routes/seller");
@@ -33,4 +33,3 @@ db.sequelize.sync().then(() => {
     console.log(`listening on ${port}`);
   });
 });
-

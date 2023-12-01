@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
 
-const Signup = () => {
+const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -32,7 +32,10 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:7000/api/auth/signup", formData);
+      const response = await axios.post(
+        "http://localhost:7000/api/auth/signup",
+        formData
+      );
       console.log(response.data);
     } catch (error) {
       console.error(error.response.data);
@@ -40,7 +43,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup"> 
+    <div className="signup">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit} className="signupContainer">
         <label>Name:</label>
@@ -48,30 +51,59 @@ const Signup = () => {
         <br />
 
         <label>Address:</label>
-        <input type="text" name="address" onChange={handleInputChange} required />
+        <input
+          type="text"
+          name="address"
+          onChange={handleInputChange}
+          required
+        />
         <br />
 
         <label>Email:</label>
-        <input type="email" name="email" onChange={handleInputChange} required />
+        <input
+          type="email"
+          name="email"
+          onChange={handleInputChange}
+          required
+        />
         <br />
 
         <label>Password:</label>
-        <input type="password" name="password" onChange={handleInputChange} required />
+        <input
+          type="password"
+          name="password"
+          onChange={handleInputChange}
+          required
+        />
         <br />
 
         <label>Contact Number:</label>
-        <input type="text" name="phoneNumber" onChange={handleInputChange} required />
+        <input
+          type="text"
+          name="phoneNumber"
+          onChange={handleInputChange}
+          required
+        />
         <br />
 
         <label>
           Admin:
-          <input type="checkbox" name="isAdmin" onChange={handleCheckboxChange} />
+          <input
+            type="checkbox"
+            name="isAdmin"
+            onChange={handleCheckboxChange}
+          />
         </label>
         {formData.isAdmin && (
           <>
             <br />
             <label>Admin Code:</label>
-            <input type="text" name="codeAdmin" onChange={handleInputChange} required />
+            <input
+              type="text"
+              name="codeAdmin"
+              onChange={handleInputChange}
+              required
+            />
           </>
         )}
         <br />
@@ -82,4 +114,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
