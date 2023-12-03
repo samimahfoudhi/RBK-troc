@@ -1,5 +1,3 @@
-// Signup.js
-
 import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
@@ -12,6 +10,8 @@ const SignUp = () => {
     password: "",
     phoneNumber: "",
     isAdmin: false,
+    isUser: false,
+    isSeller: false,
     codeAdmin: "",
   });
 
@@ -31,6 +31,18 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !formData.name ||
+      !formData.address ||
+      !formData.email ||
+      !formData.password ||
+      !formData.phoneNumber
+    ) {
+      console.error("Please fill in all required fields");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:7000/api/auth/signup",
@@ -94,6 +106,25 @@ const SignUp = () => {
             onChange={handleCheckboxChange}
           />
         </label>
+
+        <label>
+          User:
+          <input
+            type="checkbox"
+            name="isUser"
+            onChange={handleCheckboxChange}
+          />
+        </label>
+
+        <label>
+          Seller:
+          <input
+            type="checkbox"
+            name="isSeller"
+            onChange={handleCheckboxChange}
+          />
+        </label>
+
         {formData.isAdmin && (
           <>
             <br />
