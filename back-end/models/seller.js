@@ -1,6 +1,6 @@
 module.exports = (sequelize, Datatype) => {
   const Seller = sequelize.define("Seller", {
-    sellerName: {
+    name: {
       type: Datatype.STRING,
 
       allowNull: false,
@@ -19,12 +19,18 @@ module.exports = (sequelize, Datatype) => {
       type: Datatype.STRING,
       allowNull: false,
     },
+    adress: {
+      type: Datatype.STRING,
+      allowNull: false,
+    },
   });
 
   Seller.associate = (models) => {
     Seller.hasMany(models.Product, {
       onDelete: "cascade",
     });
+   
   };
+
   return Seller;
 };

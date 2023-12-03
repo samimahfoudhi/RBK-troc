@@ -74,6 +74,8 @@
   background: transparent;
 }
 .login {
+  margin-top: -10px;
+  margin-left: -40px;
   left: 980px;
   top: 41px;
   position: absolute;

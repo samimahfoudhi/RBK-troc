@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AddProduct.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+
 const AddProduct = (props) => {
   const navigate = useNavigate();
   const [image, setImage] = useState("");
@@ -10,6 +10,7 @@ const AddProduct = (props) => {
   const [descr, setDescr] = useState("");
   const [price, setPrice] = useState();
   const [data, setData] = useState([]);
+  const currentSellerRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -17,8 +18,11 @@ const AddProduct = (props) => {
       .then(({ data }) => setData(data))
       .catch((err) => console.log(err));
   }, []);
-  const currentSeller = data.find((e) => e.email === props.seller.email);
-  console.log(currentSeller);
+
+  useEffect(() => {
+    currentSellerRef.current = data.find((e) => e.email === props.seller.email);
+  }, [data, props.seller.email]);
+
   const handleUpdate = () => {
     const prouct = {};
     if (image !== "") {
@@ -31,25 +35,36 @@ const AddProduct = (props) => {
       prouct.description = descr;
     }
     if (price !== 0) {
-      prouct.image = image;
+      prouct.price = price;
     }
-    if (currentSeller !== 0) {
-      prouct.SellerId = currentSeller.id;
+    if (currentSellerRef.current) {
+      prouct.SellerId = currentSellerRef.current.id;
     }
+
     axios
       .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, prouct)
       .then((response) => console.log("done"))
       .catch((err) => console.log(err));
-    navigate("/product");
+    navigate("/test");
   };
+
   const handleSubmit = () => {
-    const prouct = {
-      image: image,
-      category: category,
-      description: descr,
-      price: price,
-      SellerId: currentSeller.id,
-    };
+    const prouct = {};
+    if (image !== "") {
+      prouct.image = image;
+    }
+    if (category !== "") {
+      prouct.category = category;
+    }
+    if (descr !== "") {
+      prouct.description = descr;
+    }
+    if (price !== 0) {
+      prouct.price = price;
+    }
+    if (currentSellerRef.current) {
+      prouct.SellerId = currentSellerRef.current.id;
+    }
 
     axios
       .post("http://localhost:7000/createProduct", prouct)
@@ -58,6 +73,7 @@ const AddProduct = (props) => {
 
     navigate("/test");
   };
+
   return (
     <div className="contain">
       <div className="formContainer">

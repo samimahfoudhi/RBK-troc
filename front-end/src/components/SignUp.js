@@ -1,254 +1,118 @@
-import { useState, useContext } from "react";
-import { Grid, TextField, Button, Typography, Paper, MenuItem } from "@mui/material";
-import { styled } from "@mui/system";
+import React, { useState } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
-import PasswordInput from "../lib/PasswordInput";
-import EmailInput from "../lib/EmailInput";
-import { SetPopupContext } from "../App";
-import apiList from "../lib/apiList";
-import isAuth from "../lib/isAuth";
+import "./SignUp.css";
 
-const MyPaper = styled(Paper)({
-  padding: "60px 60px",
-  display: "flex",
-  justifyContent: "space-between",
-});
+const SignUp = () => {
+  const [referrer, setReferrer] = useState("");
+  const [name, setName] = useState("");
+  const [adress, setAdress] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setNumber] = useState("");
+  const handleSubmit = () => {
+    const member = {
+      name,
+      adress,
+      email,
+      password,
+      phoneNumber,
+    };
 
-const MyLeftSide = styled("div")({
-  flex: 1,
-  marginRight: "20px",
-});
-
-const MyRightSide = styled("div")({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-});
-
-const MyInputBox = styled(TextField)({
-  width: "400px",
-  marginBottom: "20px",
-});
-
-const MySubmitButton = styled(Button)({
-  width: "400px",
-});
-
-const Login = (props) => {
-  const classes = useStyles();
-  const setPopup = useContext(SetPopupContext);
-
-  const [loggedin, setLoggedin] = useState(isAuth());
-
-  const [signupDetails, setSignupDetails] = useState({
-    type: "user",
-    email: "",
-    password: "",
-    name: "",
-    contactNumber: "",
-    confirmCode: "",
-  });
-
-  const [inputErrorHandler, setInputErrorHandler] = useState({
-    email: {
-      untouched: true,
-      required: true,
-      error: false,
-      message: "",
-    },
-    password: {
-      untouched: true,
-      required: true,
-      error: false,
-      message: "",
-    },
-    name: {
-      untouched: true,
-      required: true,
-      error: false,
-      message: "",
-    },
-    confirmCode: {
-      untouched: true,
-      required: true,
-      error: false,
-      message: "",
-    },
-  });
-
-  const handleInput = (key, value) => {
-    setSignupDetails({
-      ...signupDetails,
-      [key]: value,
-    });
-  };
-
-  const handleInputError = (key, status, message) => {
-    setInputErrorHandler({
-      ...inputErrorHandler,
-      [key]: {
-        required: true,
-        untouched: false,
-        error: status,
-        message: message,
-      },
-    });
-  };
-
-  const handleLogin = () => {
-    const tmpErrorHandler = {};
-    Object.keys(inputErrorHandler).forEach((obj) => {
-      if (inputErrorHandler[obj].required && inputErrorHandler[obj].untouched) {
-        tmpErrorHandler[obj] = {
-          required: true,
-          untouched: false,
-          error: true,
-          message: `${obj[0].toUpperCase() + obj.substr(1)} is required`,
-        };
-      } else {
-        tmpErrorHandler[obj] = inputErrorHandler[obj];
-      }
-    });
-
-    if (signupDetails.type === "admin" && signupDetails.confirmCode !== "Rbk-troc2023") {
-      tmpErrorHandler.confirmCode = {
-        required: true,
-        untouched: false,
-        error: true,
-        message: "Invalid confirmation code. Please contact admin to receive the code.",
-      };
-    }
-
-    const verified = !Object.keys(tmpErrorHandler).some((obj) => {
-      return tmpErrorHandler[obj].error;
-    });
-
-    if (verified) {
+    if (referrer === "1") {
       axios
-        .post(apiList.signup, signupDetails)
-        .then((response) => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("type", response.data.type);
-          setLoggedin(isAuth());
-          setPopup({
-            open: true,
-            severity: "success",
-            message: "Logged in successfully",
-          });
-          console.log(response);
-        })
-        .catch((err) => {
-          setPopup({
-            open: true,
-            severity: "error",
-            message: err.response.data.message,
-          });
-          console.log(err.response);
-        });
-    } else {
-      setInputErrorHandler(tmpErrorHandler);
-      setPopup({
-        open: true,
-        severity: "error",
-        message: "Incorrect Input",
-      });
+        .post("http://localhost:7000/createAdmin", member)
+        .then((response) => console.log("done"))
+        .catch((err) => console.log(err));
+    }
+    if (referrer === "2") {
+      axios
+        .post("http://localhost:7000/createSeller", member)
+        .then((response) => console.log("done"))
+        .catch((err) => console.log(err));
+    }
+    if (referrer === "3") {
+      axios
+        .post("http://localhost:7000/createUser", member)
+        .then((response) => console.log("done"))
+        .catch((err) => console.log(err));
     }
   };
-
-  return loggedin ? (
-    <Redirect to="/" />
-  ) : (
-    <MyPaper elevation={3}>
-      <MyLeftSide>
-        <img
-          src="https://cdn-res.keymedia.com/cms/images/us/036/0223_637123482318135213.jpg"
-          alt="Welcome"
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      </MyLeftSide>
-      <MyRightSide>
-        <Typography variant="h3">Welcome to Signup</Typography>
-        <MyInputBox
-          select
-          label="Category"
-          variant="outlined"
-          value={signupDetails.type}
-          onChange={(event) => handleInput("type", event.target.value)}
-        >
-          <MenuItem value="user">User</MenuItem>
-          <MenuItem value="admin">Admin</MenuItem>
-          <MenuItem value="seller">Seller</MenuItem>
-        </MyInputBox>
-        <MyInputBox
-          label="Name"
-          value={signupDetails.name}
-          onChange={(event) => handleInput("name", event.target.value)}
-          error={inputErrorHandler.name.error}
-          helperText={inputErrorHandler.name.message}
-          onBlur={(event) => {
-            if (event.target.value === "") {
-              handleInputError("name", true, "Name is required");
-            } else {
-              handleInputError("name", false, "");
-            }
-          }}
-          variant="outlined"
-        />
-        <EmailInput
-          label="Email"
-          value={signupDetails.email}
-          onChange={(event) => handleInput("email", event.target.value)}
-          inputErrorHandler={inputErrorHandler}
-          handleInputError={handleInputError}
-          className={MyInputBox}
-          required={true}
-        />
-        <PasswordInput
-          label="Password"
-          value={signupDetails.password}
-          onChange={(event) => handleInput("password", event.target.value)}
-          className={MyInputBox}
-          error={inputErrorHandler.password.error}
-          helperText={inputErrorHandler.password.message}
-          onBlur={(event) => {
-            if (event.target.value === "") {
-              handleInputError("password", true, "Password is required");
-            } else {
-              handleInputError("password", false, "");
-            }
+  return (
+    <div className="signup">
+      <h2>Signup</h2>
+      <form className="signupContainer">
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          required
+          onChange={(e) => {
+            setName(e.target.value);
           }}
         />
-        {signupDetails.type === "admin" ? (
-          <MyInputBox
-            label="Confirmation Code"
-            value={signupDetails.confirmCode}
-            onChange={(event) => handleInput("confirmCode", event.target.value)}
-            error={inputErrorHandler.confirmCode.error}
-            helperText={inputErrorHandler.confirmCode.message}
-            onBlur={(event) => {
-              if (event.target.value === "") {
-                handleInputError("confirmCode", true, "Confirmation code is required");
-              } else {
-                handleInputError("confirmCode", false, "");
-              }
-            }}
-            variant="outlined"
-          />
-        ) : null}
+        <br />
 
-        <MySubmitButton
-          variant="contained"
-          color="primary"
-          onClick={handleLogin}
+        <label>Address:</label>
+        <input
+          type="text"
+          name="address"
+          required
+          onChange={(e) => {
+            setAdress(e.target.value);
+          }}
+        />
+        <br />
+
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          required
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <br />
+
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          required
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <br />
+
+        <label>Contact Number:</label>
+        <input
+          type="text"
+          name="phoneNumber"
+          required
+          onChange={(e) => {
+            setNumber(e.target.value);
+          }}
+        />
+        <br />
+        <select
+          id="referrer"
+          name="referrer"
+          onChange={(e) => setReferrer(e.target.value)}
         >
+          <option value="">(select one)</option>
+          <option value="1">Admin</option>
+          <option value="2">Seller</option>
+          <option value="3">User</option>
+        </select>
+        <br />
+
+        <button type="submit" onClick={handleSubmit}>
           Signup
-        </MySubmitButton>
-      </MyRightSide>
-    </MyPaper>
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default Login;
-
+export default SignUp;

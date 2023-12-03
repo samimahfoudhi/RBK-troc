@@ -3,11 +3,12 @@ const route = express.Router();
 const db = require("../models");
 route.post("/createUser", (req, res) => {
   db.User.create({
-    userName: req.body.userName,
-    adress: req.body.adress,
-    phoneNumber: req.body.phoneNumber,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    adress: req.body.adress,
+    phoneNumber: req.body.phoneNumber,
+    AdminId: req.body.AdminId,
   })
     .then((response) => res.status(201).json(response))
     .catch((err) => res.status(400).json(err));

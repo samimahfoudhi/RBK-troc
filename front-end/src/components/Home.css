@@ -1,0 +1,87 @@
+.homContainer {
+  margin-top: 170px;
+  margin-bottom: 200px;
+}
+h4 {
+  color: #6c5dd3;
+  text-align: center;
+  font-family: SF Pro Display;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.5px;
+}
+h1 {
+  color: #fff;
+  text-align: center;
+  font-family: SF Pro Display;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 135%;
+  letter-spacing: 1.2px;
+}
+p {
+  width: 617px;
+  color: var(--half-white, rgba(255, 255, 255, 0.5));
+  text-align: center;
+  font-family: SF Pro Display;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%;
+}
+.first {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#image1 {
+  width: 324px;
+  height: 397px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin-left: 300px;
+  margin-top: 70px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.35);
+}
+.second {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  margin-left: 30px;
+}
+
+.second > div {
+  flex: 1;
+}
+#image2 {
+  width: 324px;
+  height: 397px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin-right: 350px;
+  margin-top: 70px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.35);
+}
+.images {
+  margin-right: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin-top: 80px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.35);
+}
+.brands {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 250px;
+}
+.brandsImage {
+  width: 143px;
+  height: 103px;
+  flex-shrink: 0;
+  border-radius: 20%;
+}
