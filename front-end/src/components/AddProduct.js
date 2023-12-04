@@ -45,7 +45,7 @@ const AddProduct = (props) => {
       .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, prouct)
       .then((response) => console.log("done"))
       .catch((err) => console.log(err));
-    navigate("/test");
+    navigate("/product");
   };
 
   const handleSubmit = () => {
@@ -65,13 +65,13 @@ const AddProduct = (props) => {
     if (currentSellerRef.current) {
       prouct.SellerId = currentSellerRef.current.id;
     }
-
+    console.log(prouct);
     axios
       .post("http://localhost:7000/createProduct", prouct)
       .then((response) => console.log("done"))
       .catch((err) => console.log(err));
 
-    navigate("/test");
+    navigate("/product");
   };
 
   return (

@@ -1,0 +1,14 @@
+.container {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 200px;
+}
+
+#adminmail {
+  border: 2px solid black;
+}
+.deleteButton {
+  margin-right: 50px;
+}

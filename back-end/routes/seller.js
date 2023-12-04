@@ -9,6 +9,7 @@ route.post("/createSeller", (req, res) => {
     adress: req.body.adress,
     phoneNumber: req.body.phoneNumber,
   })
+
     .then((response) => res.status(201).json(response))
     .catch((err) => res.status(400).json(err));
 });

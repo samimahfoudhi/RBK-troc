@@ -12,7 +12,6 @@ const Admin = () => {
       .get("http://localhost:7000/getAllSellers")
       .then(({ data }) => {
         setGlobal((prevGlobal) => {
-          // Filter out duplicates based on some unique identifier (e.g., id)
           const newData = data.filter(
             (item) => !prevGlobal.some((prevItem) => prevItem.id === item.id)
           );

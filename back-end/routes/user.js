@@ -18,7 +18,7 @@ route.get("/getAllUsers", (req, res) => {
     .then((response) => res.status(201).json(response))
     .catch((err) => res.status(400).json(err));
 });
-route.delete("/deleteUser", (req, res) => {
+route.delete("/deleteUser/:id", (req, res) => {
   db.User.destroy({ where: { id: req.params.id } })
     .then((response) => res.status(201).json(response))
     .catch((err) => res.status(400).json(err));
