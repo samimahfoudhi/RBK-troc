@@ -11,9 +11,11 @@ import ProfilInfo from "./components/ProfilInfo";
 import AddProduct from "./components/AddProduct";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+
 import axios from "axios";
 import AdminProfil from "./components/AdminProfil";
 import Admin from "./components/Admin";
+
 function App() {
   const [seller, setSeller] = useState({});
   const [idUpdate, setIdUpdate] = useState();
@@ -54,6 +56,7 @@ function App() {
           path="/test2"
           element={<AddProduct idUpdate={idUpdate} seller={seller} />}
         />
+
         <Route exact path="/test3" element={<SignUp />} />
         <Route
           exact
@@ -61,6 +64,7 @@ function App() {
           element={<AdminProfil importId={importId} data={data} />}
         />
         <Route exact path="/test5" element={<Admin />} />
+
       </Routes>
       <Footer />
     </div>

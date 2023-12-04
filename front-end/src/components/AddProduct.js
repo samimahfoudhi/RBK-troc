@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import "./AddProduct.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
+
+
 
 const AddProduct = (props) => {
   const navigate = useNavigate();
@@ -10,7 +13,9 @@ const AddProduct = (props) => {
   const [descr, setDescr] = useState("");
   const [price, setPrice] = useState();
   const [data, setData] = useState([]);
+
   const currentSellerRef = useRef(null);
+
 
   useEffect(() => {
     axios
@@ -19,34 +24,43 @@ const AddProduct = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
+
   useEffect(() => {
     currentSellerRef.current = data.find((e) => e.email === props.seller.email);
   }, [data, props.seller.email]);
+n
 
   const handleUpdate = () => {
-    const prouct = {};
+    const product = {};
     if (image !== "") {
-      prouct.image = image;
+      product.image = image;
     }
     if (category !== "") {
-      prouct.category = category;
+      product.category = category;
     }
     if (descr !== "") {
-      prouct.description = descr;
+      product.description = descr;
     }
     if (price !== 0) {
+
       prouct.price = price;
     }
     if (currentSellerRef.current) {
       prouct.SellerId = currentSellerRef.current.id;
     }
 
+
     axios
-      .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, prouct)
-      .then((response) => console.log("done"))
+      .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, product)
+      .then((response) => console.log("Update done"))
       .catch((err) => console.log(err));
+    
     navigate("/product");
   };
+
+
+  
+
 
   const handleSubmit = () => {
     const prouct = {};
@@ -67,8 +81,8 @@ const AddProduct = (props) => {
     }
     console.log(prouct);
     axios
-      .post("http://localhost:7000/createProduct", prouct)
-      .then((response) => console.log("done"))
+      .post("http://localhost:7000/createProduct", product)
+      .then((response) => console.log("Product created"))
       .catch((err) => console.log(err));
 
     navigate("/product");
@@ -79,12 +93,9 @@ const AddProduct = (props) => {
       <div className="formContainer">
         <form>
           <input
-            type="text"
-            placeholder="image"
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-          />{" "}
+            type="file"
+            onChange={handleImageUpload}
+          />
           <br />
           <input
             type="text"
@@ -110,8 +121,8 @@ const AddProduct = (props) => {
             }}
           />
         </form>
-        <button onClick={handleSubmit}>submit</button>
-        <button onClick={handleUpdate}>submit update</button>
+        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleUpdate}>Submit Update</button>
       </div>
     </div>
   );
