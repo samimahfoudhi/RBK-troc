@@ -1,9 +1,10 @@
-// AddProduct.js
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import "./AddProduct.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import "./AddProduct.css";
+
+
 
 const AddProduct = (props) => {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ const AddProduct = (props) => {
   const [descr, setDescr] = useState("");
   const [price, setPrice] = useState();
   const [data, setData] = useState([]);
-  
+
+  const currentSellerRef = useRef(null);
+
+
   useEffect(() => {
     axios
       .get("http://localhost:7000/getAllSellers")
@@ -20,7 +24,11 @@ const AddProduct = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  const currentSeller = data.find((e) => e.email === props.seller.email);
+
+  useEffect(() => {
+    currentSellerRef.current = data.find((e) => e.email === props.seller.email);
+  }, [data, props.seller.email]);
+n
 
   const handleUpdate = () => {
     const product = {};
@@ -34,12 +42,14 @@ const AddProduct = (props) => {
       product.description = descr;
     }
     if (price !== 0) {
-      product.price = price;
+
+      prouct.price = price;
     }
-    if (currentSeller !== 0) {
-      product.SellerId = currentSeller.id;
+    if (currentSellerRef.current) {
+      prouct.SellerId = currentSellerRef.current.id;
     }
-    
+
+
     axios
       .put(`http://localhost:7000/updateProduct/${props.idUpdate}`, product)
       .then((response) => console.log("Update done"))
@@ -48,38 +58,34 @@ const AddProduct = (props) => {
     navigate("/product");
   };
 
-  const handleImageUpload = async (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    formData.append("upload_preset", "your_cloudinary_preset"); // Replace with your Cloudinary preset name
 
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/your_cloudinary_cloud_name/image/upload",
-        formData
-      );
+  
 
-      setImage(response.data.secure_url);
-    } catch (error) {
-      console.error("Error uploading image to Cloudinary:", error);
-    }
-  };
 
   const handleSubmit = () => {
-    const product = {
-      image: image,
-      category: category,
-      description: descr,
-      price: price,
-      SellerId: currentSeller.id,
-    };
-
+    const prouct = {};
+    if (image !== "") {
+      prouct.image = image;
+    }
+    if (category !== "") {
+      prouct.category = category;
+    }
+    if (descr !== "") {
+      prouct.description = descr;
+    }
+    if (price !== 0) {
+      prouct.price = price;
+    }
+    if (currentSellerRef.current) {
+      prouct.SellerId = currentSellerRef.current.id;
+    }
+    console.log(prouct);
     axios
       .post("http://localhost:7000/createProduct", product)
       .then((response) => console.log("Product created"))
       .catch((err) => console.log(err));
 
-    navigate("/test");
+    navigate("/product");
   };
 
   return (

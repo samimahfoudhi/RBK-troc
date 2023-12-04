@@ -1,13 +1,23 @@
 import React from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
     <>
       <div className="container">
-        <div className="logo">RBK-TROC</div>
-        <button className="home">Home</button>
+        <Link to="/">
+          <div className="logo">RBK-TROC</div>
+        </Link>
+        <button
+          className="home"
+          onClick={() => {
+            navigate("/test3");
+          }}
+        >
+          Sign Up
+        </button>
 
         <button
           className="collection"

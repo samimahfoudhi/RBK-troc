@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Signup.css";
 
+import "./SignUp.css";
+import { useNavigate } from "react-router";
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
-    address: "",
+    adress: "",
     email: "",
     password: "",
-    phoneNumber: "",
+    phoneNumber: null,
+
     isAdmin: false,
     isUser: false,
     isSeller: false,
@@ -18,14 +21,24 @@ const SignUp = () => {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+
+      [e.target.name]:
+        e.target.name === "phoneNumber"
+          ? parseInt(e.target.value, 10)
+          : e.target.value.trim(),
+
     });
   };
 
   const handleCheckboxChange = (e) => {
+
+    const { name, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.checked,
+      isAdmin: name === "isAdmin" ? checked : false,
+      isUser: name === "isUser" ? checked : false,
+      isSeller: name === "isSeller" ? checked : false,
+n
     });
   };
 
@@ -34,7 +47,9 @@ const SignUp = () => {
 
     if (
       !formData.name ||
-      !formData.address ||
+
+      !formData.adress ||
+
       !formData.email ||
       !formData.password ||
       !formData.phoneNumber
@@ -44,28 +59,47 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:7000/api/auth/signup",
-        formData
-      );
+
+      let signUpPath = "";
+
+      if (formData.isAdmin && formData.codeAdmin === "rbk-troc2023") {
+        signUpPath = "http://localhost:7000/createAdmin";
+      } else if (formData.isSeller) {
+        signUpPath = "http://127.0.0.1:7000/createSeller";
+        console.log("first");
+      } else {
+        signUpPath = "http://localhost:7000/createUser";
+      }
+
+      const response = await axios.post(signUpPath, formData);
       console.log(response.data);
     } catch (error) {
-      console.error(error.response.data);
+      console.error("Error during signup:", error);
+      if (error.response) {
+        console.error("Server response:", error.response.data);
+      }
+
     }
+    navigate("/login");
   };
 
   return (
     <div className="signup">
-      <h2>Signup</h2>
+
+      <h2 className="signuptitle">Signup</h2>
+
+
       <form onSubmit={handleSubmit} className="signupContainer">
         <label>Name:</label>
         <input type="text" name="name" onChange={handleInputChange} required />
         <br />
 
-        <label>Address:</label>
+
+        <label>adress:</label>
         <input
           type="text"
-          name="address"
+          name="adress"
+
           onChange={handleInputChange}
           required
         />
@@ -103,6 +137,8 @@ const SignUp = () => {
           <input
             type="checkbox"
             name="isAdmin"
+
+            checked={formData.isAdmin}
             onChange={handleCheckboxChange}
           />
         </label>
@@ -112,15 +148,22 @@ const SignUp = () => {
           <input
             type="checkbox"
             name="isUser"
+            checked={formData.isUser}
+
             onChange={handleCheckboxChange}
           />
         </label>
 
         <label>
+
+
           Seller:
           <input
             type="checkbox"
             name="isSeller"
+
+            checked={formData.isSeller}
+
             onChange={handleCheckboxChange}
           />
         </label>

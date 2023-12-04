@@ -4,6 +4,7 @@ import ProfilInfo from "./ProfilInfo";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+
 import "./Products.css";
 const Profil = (props) => {
   const [data, setData] = useState([]);
@@ -16,14 +17,17 @@ const Profil = (props) => {
       .catch((err) => console.log(err));
   }, []);
   const currentSeller = data.find((e) => e.email === props.seller.email);
-  if (currentSeller) {
-    axios
-      .get(`http://localhost:7000/getAllProductForOne/${currentSeller.id}`)
-      .then(({ data }) => setProfilData(data))
-      .catch((err) => console.log(err));
-  } else {
-    console.error("Current seller not found.");
-  }
+
+  useEffect(() => {
+    if (currentSeller) {
+      axios
+        .get(`http://localhost:7000/getAllProductForOne/${currentSeller.id}`)
+        .then(({ data }) => setProfilData(data))
+        .catch((err) => console.log(err));
+    } else {
+      console.error("Current seller not found.");
+    }
+  }, [currentSeller]);
 
   return (
     <div className="profilContainer">
@@ -52,12 +56,13 @@ const Profil = (props) => {
       <div className="prods">
         <div className="profilInfoContaine"></div>;
         <div className="cardGrid">
-          {profilData.map((elem) => {
+          {profilData.map((elem, i) => {
             return (
               <ProfilInfo
                 importId={props.importId}
                 elem={elem}
                 currentSeller={currentSeller}
+                key={i}
               />
             );
           })}
